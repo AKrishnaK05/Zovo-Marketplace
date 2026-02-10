@@ -73,15 +73,15 @@ if (process.env.NODE_ENV === "development") {
 /* ============================
    Routes
    ============================ */
-app.use("/auth", authRoutes);
-app.use("/jobs", jobRoutes);
-app.use("/worker", workerRoutes);
-app.use("/admin", adminRoutes);
-app.use("/reviews", reviewRoutes);
-app.use("/pricing", pricingRoutes);
-app.use("/availability", availabilityRoutes);
-app.use("/areas", areaRoutes);
-app.use("/location", locationRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/jobs", jobRoutes);
+app.use("/api/worker", workerRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/reviews", reviewRoutes);
+app.use("/api/pricing", pricingRoutes);
+app.use("/api/availability", availabilityRoutes);
+app.use("/api/areas", areaRoutes);
+app.use("/api/location", locationRoutes);
 
 /* ============================
    Health Check
