@@ -1,4 +1,4 @@
-# Zovo Marketplace 🛒🚀
+# Zovo Marketplace 🛒
 
 > A full-stack **MERN (MongoDB, Express, React, Node.js)** marketplace application connecting Customers with Service Professionals (Electricians, Plumbers, Stylists, etc.).
 
@@ -135,4 +135,4 @@ This project is open-source and available under the [MIT License](LICENSE).
 
 ---
 
-### Developed by **[Adwaid Krishna K](https://github.com/AKrishnaK05)** 🚀
+### Developed by **[Adwaid Krishna K](https://github.com/AKrishnaK05)** 
