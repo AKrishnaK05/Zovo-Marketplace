@@ -26,7 +26,8 @@ const io = new Server(server, {
   cors: {
     origin: [
       "https://red-water-0e427d600.3.azurestaticapps.net",
-      "http://localhost:5173"
+      "http://localhost:5173",
+      "https://AKrishnaK05.github.io"
     ],
     credentials: true
   }
