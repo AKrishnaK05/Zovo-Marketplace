@@ -27,7 +27,8 @@ const io = new Server(server, {
     origin: [
       "https://red-water-0e427d600.3.azurestaticapps.net",
       "http://localhost:5173",
-      "https://AKrishnaK05.github.io"
+      "https://AKrishnaK05.github.io",
+      "https://akrishnak05.github.io"
     ],
     credentials: true
   }
