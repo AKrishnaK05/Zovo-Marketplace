@@ -12,10 +12,10 @@ server.listen(PORT, () => {
   console.log(`🚀 Backend running on port ${PORT}`);
 
   // WARMUP: Load ML Model in background (Delayed to allow Health Check pass)
-  setTimeout(() => {
-    console.log("🔥 Warming up ML Model...");
-    loadModel().catch(err => console.error("⚠️ Model Warmup Failed:", err.message));
-  }, 10000); // 10s delay
+  // setTimeout(() => {
+  //   console.log("🔥 Warming up ML Model...");
+  //   loadModel().catch(err => console.error("⚠️ Model Warmup Failed:", err.message));
+  // }, 10000); // 10s delay
 });
 
 // CONNECT DB IN BACKGROUND

@@ -82,10 +82,13 @@ async function loadModel() {
  * @returns {Promise<Object>} Map of driverId -> probability (0-1)
  */
 async function getDriverScoring(inputData) {
-    if (!session) {
-        await loadModel();
-        if (!session) return {}; // Fail safe
-    }
+    // ⚠️ FREE TIER OPTIMIZATION: Always use Heuristic to save memory (Limit 512MB)
+    // if (!session) {
+    //     await loadModel();
+    //     if (!session) return {}; // Fail safe
+    // }
+    const score = calculateHeuristic(inputData);
+    return { "heuristic_score": score };
 
     try {
 
