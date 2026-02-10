@@ -24,7 +24,9 @@ const app = express();
 const allowedOrigins = [
   "https://red-water-0e427d600.3.azurestaticapps.net",
   "http://localhost:5173",
-  "http://localhost:5174"
+  "http://localhost:5174",
+  "https://AKrishnaK05.github.io",
+  "https://akrishnak05.github.io"
 ];
 
 /* ============================
