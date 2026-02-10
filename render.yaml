@@ -3,8 +3,8 @@ services:
     name: zovo-backend
     env: node
     plan: free
-    buildCommand: cd zovo-backend && npm install
-    startCommand: cd zovo-backend && node server.js
+    buildCommand: npm install
+    startCommand: node server.js
     envVars:
       - key: NODE_ENV
         value: production
