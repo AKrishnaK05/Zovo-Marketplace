@@ -221,7 +221,11 @@ router.put('/update-profile', protect, async (req, res) => {
 
     if (name) user.name = name;
     if (phone !== undefined) user.phone = phone;
-    if (serviceCategories) user.serviceCategories = serviceCategories;
+    if (serviceCategories) {
+      console.log('Updating serviceCategories:', serviceCategories);
+      user.serviceCategories = serviceCategories;
+      user.markModified('serviceCategories');
+    }
     if (bio !== undefined) user.bio = bio;
     if (hourlyRate !== undefined) user.hourlyRate = hourlyRate;
     if (isAvailable !== undefined) user.isAvailable = isAvailable;
