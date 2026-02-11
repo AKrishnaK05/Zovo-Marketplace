@@ -63,6 +63,7 @@ router.post('/register', async (req, res) => {
       password,  // Let the model hash it
       phone: phone || '',
       role: finalRole,
+      serviceCategories: finalRole === 'worker' ? (req.body.serviceCategories || []) : [],
       googleId,
       avatar,
       securityQuestion,
