@@ -55,7 +55,6 @@ const WorkerEarnings = () => {
         <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-2xl p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-gray-400 font-medium">Total Earnings</h3>
-            <h3 className="text-gray-400 font-medium">Total Earnings</h3>
             <span className="p-2 bg-green-500/20 rounded-lg text-green-400">
               <IndianRupee size={24} />
             </span>
@@ -72,7 +71,6 @@ const WorkerEarnings = () => {
         <div className="bg-gradient-to-br from-purple-500/10 to-blue-500/10 border border-purple-500/20 rounded-2xl p-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-gray-400 font-medium">Completed Jobs</h3>
-            <h3 className="text-gray-400 font-medium">Completed Jobs</h3>
             <span className="p-2 bg-purple-500/20 rounded-lg text-purple-400">
               <CheckCircle size={24} />
             </span>
@@ -88,7 +86,7 @@ const WorkerEarnings = () => {
       </div>
 
       {/* Transactions List */}
-      <div className="bg-gray-900/50 border border-gray-800 rounded-2xl overflow-hidden">
+      <div className="bg-gray-900/50 border border-gray-800 rounded-2xl overflow-hidden mb-12">
         <div className="p-6 border-b border-gray-800">
           <h2 className="text-xl font-bold text-white">Payment History</h2>
         </div>
@@ -101,52 +99,83 @@ const WorkerEarnings = () => {
             <p>No earnings yet. Complete jobs to start earning!</p>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left">
-              <thead className="bg-gray-800/50 text-gray-400 text-sm uppercase">
-                <tr>
-                  <th className="px-6 py-4 font-medium">Service</th>
-                  <th className="px-6 py-4 font-medium">Customer</th>
-                  <th className="px-6 py-4 font-medium">Date</th>
-                  <th className="px-6 py-4 font-medium">Amount</th>
-                  <th className="px-6 py-4 font-medium">Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-800">
-                {earningsData.transactions.map((transaction) => (
-                  <tr key={transaction._id} className="hover:bg-gray-800/30 transition">
-                    <td className="px-6 py-4">
-                      <div>
-                        <p className="text-white font-medium">{transaction.title}</p>
-                        <p className="text-xs text-gray-500 capitalize">{transaction.category}</p>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center">
-                        <div className="h-8 w-8 rounded-full bg-gray-700 flex items-center justify-center text-xs text-white font-bold mr-3">
-                          {transaction.customer?.name?.charAt(0) || 'U'}
-                        </div>
-                        <span className="text-gray-300">{transaction.customer?.name || 'Unknown User'}</span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 text-gray-400 text-sm">
-                      {new Date(transaction.updatedAt).toLocaleDateString()}
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className="text-green-400 font-bold">
-                        +₹{transaction.finalPrice}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-500/10 text-green-400 border border-green-500/20">
-                        Paid
-                      </span>
-                    </td>
+          <>
+            {/* Desktop View Table */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-left">
+                <thead className="bg-gray-800/50 text-gray-400 text-sm uppercase">
+                  <tr>
+                    <th className="px-6 py-4 font-medium">Service</th>
+                    <th className="px-6 py-4 font-medium">Customer</th>
+                    <th className="px-6 py-4 font-medium">Date</th>
+                    <th className="px-6 py-4 font-medium">Amount</th>
+                    <th className="px-6 py-4 font-medium">Status</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody className="divide-y divide-gray-800">
+                  {earningsData.transactions.map((transaction) => (
+                    <tr key={transaction._id} className="hover:bg-gray-800/30 transition">
+                      <td className="px-6 py-4">
+                        <div>
+                          <p className="text-white font-medium">{transaction.title}</p>
+                          <p className="text-xs text-gray-500 capitalize">{transaction.category}</p>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div className="flex items-center">
+                          <div className="h-8 w-8 rounded-full bg-gray-700 flex items-center justify-center text-xs text-white font-bold mr-3">
+                            {transaction.customer?.name?.charAt(0) || 'U'}
+                          </div>
+                          <span className="text-gray-300">{transaction.customer?.name || 'Unknown User'}</span>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 text-gray-400 text-sm">
+                        {new Date(transaction.updatedAt).toLocaleDateString()}
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className="text-green-400 font-bold">
+                          +₹{transaction.finalPrice}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-500/10 text-green-400 border border-green-500/20">
+                          Paid
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile View Cards */}
+            <div className="md:hidden divide-y divide-gray-800">
+              {earningsData.transactions.map((transaction) => (
+                <div key={transaction._id} className="p-5 hover:bg-gray-800/30 transition">
+                  <div className="flex justify-between items-start mb-3">
+                    <div>
+                      <p className="text-white font-semibold">{transaction.title}</p>
+                      <p className="text-xs text-gray-500 capitalize">{transaction.category}</p>
+                    </div>
+                    <span className="text-green-400 font-bold text-lg">
+                      +₹{transaction.finalPrice}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-center text-gray-400">
+                      <div className="h-6 w-6 rounded-full bg-gray-700 flex items-center justify-center text-[10px] text-white font-bold mr-2">
+                        {transaction.customer?.name?.charAt(0) || 'U'}
+                      </div>
+                      <span>{transaction.customer?.name || 'Unknown User'}</span>
+                    </div>
+                    <span className="text-gray-500">
+                      {new Date(transaction.updatedAt).toLocaleDateString()}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </div>
     </div>

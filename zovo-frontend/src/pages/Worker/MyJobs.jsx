@@ -146,9 +146,9 @@ const MyJobs = () => {
       ) : (
         <div className="space-y-4">
           {filteredJobs.map((job) => (
-            <div key={job._id} className="panel-card p-6">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
+            <div key={job._id} className="panel-card p-5 md:p-6 hover:bg-white/5 transition">
+              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+                <div className="flex-1 min-w-0">
                   {/* Header */}
                   <div className="flex items-center space-x-3 mb-2">
                     <span className="text-purple-400">{getCategoryIcon(job.category)}</span>
@@ -161,30 +161,30 @@ const MyJobs = () => {
                   <p className="text-gray-400 mb-4">{job.description}</p>
 
                   {/* Location Card with Map Actions */}
-                  <div className="p-4 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/20 rounded-lg mb-4">
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-start space-x-3">
-                        <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
+                  <div className="p-4 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/20 rounded-xl mb-4">
+                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                      <div className="flex items-start space-x-3 min-w-0">
+                        <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center shrink-0">
                           <MapPin className="text-blue-400" size={20} />
                         </div>
-                        <div>
-                          <p className="text-white font-medium">Service Location</p>
-                          <p className="text-gray-300 text-sm mt-1">{job.location?.address}</p>
+                        <div className="min-w-0">
+                          <p className="text-white font-semibold">Service Location</p>
+                          <p className="text-gray-300 text-sm mt-1 break-words">{job.location?.address}</p>
                           {job.location?.city && (
                             <p className="text-gray-500 text-sm">{job.location.city}</p>
                           )}
                         </div>
                       </div>
-                      <div className="flex flex-col space-y-2">
+                      <div className="flex flex-col space-y-2 w-full sm:w-auto">
                         <button
                           onClick={() => openDirections(job.location?.address)}
-                          className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg text-sm transition flex items-center"
+                          className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg text-sm transition flex items-center justify-center font-medium"
                         >
                           <Navigation size={16} className="mr-2" /> Directions
                         </button>
                         <button
                           onClick={() => openInMaps(job.location?.address)}
-                          className="px-4 py-2 bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 rounded-lg text-sm transition"
+                          className="px-4 py-2 bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 rounded-lg text-sm transition font-medium flex items-center justify-center"
                         >
                           View Map
                         </button>
@@ -224,34 +224,41 @@ const MyJobs = () => {
                 </div>
 
                 {/* Price & Actions */}
-                <div className="ml-6 flex flex-col items-end space-y-3">
+                <div className="flex flex-col gap-3 md:ml-6 md:min-w-[180px] md:items-end">
                   {job.estimatedPrice > 0 && (
-                    <p className="text-2xl font-bold gradient-text">₹{job.estimatedPrice}</p>
+                    <div className="md:text-right">
+                      <p className="text-gray-500 text-sm">Estimated Price</p>
+                      <p className="text-2xl font-bold gradient-text">₹{job.estimatedPrice}</p>
+                    </div>
                   )}
 
-                  {job.status === 'accepted' && (
-                    <button
-                      onClick={() => handleStatusUpdate(job._id, 'in_progress')}
-                      disabled={updatingId === job._id}
-                      className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-black font-medium rounded-lg text-sm transition flex items-center"
-                    >
-                      {updatingId === job._id ? '...' : <><Play size={16} className="mr-2" /> Start Work</>}
-                    </button>
-                  )}
+                  <div className="w-full">
+                    {job.status === 'accepted' && (
+                      <button
+                        onClick={() => handleStatusUpdate(job._id, 'in_progress')}
+                        disabled={updatingId === job._id}
+                        className="w-full px-4 py-3 bg-yellow-500 hover:bg-yellow-600 text-black font-bold rounded-xl text-base transition flex items-center justify-center"
+                      >
+                        {updatingId === job._id ? '...' : <><Play size={18} className="mr-2" /> Start Work</>}
+                      </button>
+                    )}
 
-                  {job.status === 'in_progress' && (
-                    <button
-                      onClick={() => handleStatusUpdate(job._id, 'completed')}
-                      disabled={updatingId === job._id}
-                      className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg text-sm transition flex items-center"
-                    >
-                      {updatingId === job._id ? '...' : <><CheckCircle size={16} className="mr-2" /> Complete</>}
-                    </button>
-                  )}
+                    {job.status === 'in_progress' && (
+                      <button
+                        onClick={() => handleStatusUpdate(job._id, 'completed')}
+                        disabled={updatingId === job._id}
+                        className="w-full px-4 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl text-base transition flex items-center justify-center"
+                      >
+                        {updatingId === job._id ? '...' : <><CheckCircle size={18} className="mr-2" /> Complete</>}
+                      </button>
+                    )}
 
-                  {job.status === 'completed' && (
-                    <span className="text-green-400 text-sm font-medium flex items-center"><Check size={16} className="mr-1" /> Completed</span>
-                  )}
+                    {job.status === 'completed' && (
+                      <div className="text-green-400 text-sm font-bold flex items-center justify-end">
+                        <CheckCircle size={18} className="mr-2" /> Job Completed
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

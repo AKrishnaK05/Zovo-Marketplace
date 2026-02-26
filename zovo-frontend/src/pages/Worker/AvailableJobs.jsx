@@ -151,9 +151,9 @@ const AvailableJobs = () => {
       ) : (
         <div className="space-y-4">
           {availableJobs.map((job) => (
-            <div key={job._id} className="panel-card p-6 hover:bg-white/5 transition">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
+            <div key={job._id} className="panel-card p-5 md:p-6 hover:bg-white/5 transition">
+              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+                <div className="flex-1 min-w-0">
                   {/* Title & Category */}
                   <div className="flex items-center space-x-3 mb-2">
                     <span className="text-purple-400">{getCategoryIcon(job.category)}</span>
@@ -167,13 +167,13 @@ const AvailableJobs = () => {
                   <p className="text-gray-400 mt-2 mb-4">{job.description}</p>
 
                   {/* Location - WITH MAP LINK */}
-                  <div className="p-4 bg-gray-800/50 rounded-lg mb-4">
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-start space-x-3">
-                        <MapPin className="text-blue-400 mt-1" size={20} />
-                        <div>
-                          <p className="text-white font-medium">Service Location</p>
-                          <p className="text-gray-400 text-sm mt-1">{job.location?.address || 'Address not provided'}</p>
+                  <div className="p-4 bg-gray-800/50 rounded-xl mb-4">
+                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                      <div className="flex items-start space-x-3 min-w-0">
+                        <MapPin className="text-blue-400 mt-1 shrink-0" size={20} />
+                        <div className="min-w-0">
+                          <p className="text-white font-semibold">Service Location</p>
+                          <p className="text-gray-400 text-sm mt-1 break-words">{job.location?.address || 'Address not provided'}</p>
                           {job.location?.city && (
                             <p className="text-gray-500 text-sm">{job.location.city}</p>
                           )}
@@ -181,11 +181,9 @@ const AvailableJobs = () => {
                       </div>
                       <button
                         onClick={() => openInMaps(job.location?.address)}
-                        className="px-4 py-2 bg-blue-500/20 text-blue-400 rounded-lg hover:bg-blue-500/30 transition flex items-center text-sm"
+                        className="px-4 py-2.5 bg-blue-500/20 text-blue-400 rounded-xl hover:bg-blue-500/30 transition flex items-center justify-center text-sm font-medium w-full sm:w-auto shrink-0"
                       >
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-                        </svg>
+                        <Navigation size={16} className="mr-2" />
                         Open in Maps
                       </button>
                     </div>
@@ -227,47 +225,53 @@ const AvailableJobs = () => {
                 </div>
 
                 {/* Price & Accept Button */}
-                <div className="text-right ml-6 flex flex-col items-end">
+                <div className="flex flex-col gap-3 md:ml-6 md:min-w-[180px] md:items-end">
                   {job.estimatedPrice > 0 && (
-                    <div className="mb-4">
-                      <p className="text-gray-500 text-sm">Estimated</p>
+                    <div className="md:text-right">
+                      <p className="text-gray-500 text-sm">Estimated Price</p>
                       <p className="text-2xl font-bold gradient-text">₹{job.estimatedPrice}</p>
                     </div>
                   )}
-                  <button
-                    onClick={() => handleAccept(job._id)}
-                    disabled={acceptingId === job._id}
-                    className="btn-accent flex items-center px-6 py-3"
-                  >
-                    {acceptingId === job._id ? (
-                      <>
-                        <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full mr-2"></div>
-                        Accepting...
-                      </>
-                    ) : (
-                      <>
-                        <Check size={18} className="mr-2" />
-                        Accept Job
-                      </>
-                    )}
-                  </button>
 
-                  {/* Reject Button */}
-                  <button
-                    onClick={() => handleReject(job._id)}
-                    disabled={acceptingId === job._id || rejectingId === job._id}
-                    className="mt-2 w-full px-6 py-2 border border-red-500/30 text-red-400 hover:bg-red-500/10 rounded-xl transition font-medium text-sm"
-                  >
-                    {rejectingId === job._id ? 'Declining...' : 'Decline Offer'}
-                  </button>
+                  <div className="flex flex-col gap-3 w-full">
+                    <button
+                      onClick={() => handleAccept(job._id)}
+                      disabled={acceptingId === job._id}
+                      className="btn-accent w-full py-3.5 flex items-center justify-center text-base"
+                    >
+                      {acceptingId === job._id ? (
+                        <>
+                          <div className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full mr-2"></div>
+                          Accepting...
+                        </>
+                      ) : (
+                        <>
+                          <Check size={20} className="mr-2" />
+                          Accept Job
+                        </>
+                      )}
+                    </button>
 
-                  {/* View Details */}
-                  <button
-                    onClick={() => setSelectedJob(selectedJob?._id === job._id ? null : job)}
-                    className="mt-2 text-sm text-gray-400 hover:text-white"
-                  >
-                    {selectedJob?._id === job._id ? 'Hide Details' : 'View Details'}
-                  </button>
+                    <button
+                      onClick={() => handleReject(job._id)}
+                      disabled={acceptingId === job._id || rejectingId === job._id}
+                      className="w-full py-3 border border-red-500/30 text-red-400 hover:bg-red-500/10 rounded-xl transition font-semibold text-sm flex items-center justify-center"
+                    >
+                      {rejectingId === job._id ? 'Declining...' : 'Decline Offer'}
+                    </button>
+
+                    {/* View Details */}
+                    <button
+                      onClick={() => setSelectedJob(selectedJob?._id === job._id ? null : job)}
+                      className="w-full mt-1 text-sm text-gray-400 hover:text-white transition flex items-center justify-center gap-1"
+                    >
+                      {selectedJob?._id === job._id ? (
+                        <>Hide Details <ChevronUp size={16} /></>
+                      ) : (
+                        <>View Details <ChevronDown size={16} /></>
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
 
