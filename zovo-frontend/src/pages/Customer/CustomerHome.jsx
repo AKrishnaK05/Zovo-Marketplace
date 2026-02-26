@@ -141,12 +141,12 @@ const CustomerHome = () => {
                 <h3 className="text-white font-semibold">
                   {jobsNeedingReview.length} Completed Job{jobsNeedingReview.length > 1 ? 's' : ''} Awaiting Review
                 </h3>
-                <p className="text-gray-400 text-sm">Share your experience and help others!</p>
+                <p className="text-gray-400 text-sm">Share your experience!</p>
               </div>
             </div>
             <Link
               to="/customer/history"
-              className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-black font-medium rounded-lg transition"
+              className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-black font-medium rounded-lg transition shrink-0 ml-4"
             >
               Write Reviews
             </Link>

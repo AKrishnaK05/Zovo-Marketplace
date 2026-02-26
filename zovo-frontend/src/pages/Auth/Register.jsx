@@ -257,8 +257,8 @@ const Register = () => {
           {/* Step 1: Basic Info */}
           {step === 1 && (
             <div className="space-y-5">
-              <div className="mb-2 text-center">
-                <img src={logo} alt="Zovo" className="h-[550px] mx-auto -my-52 object-contain" />
+              <div className="mb-6 text-center">
+                <img src={logo} alt="Zovo" className="h-32 md:h-40 mx-auto object-contain" />
               </div>
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <button

@@ -643,7 +643,7 @@ const BookService = () => {
                 <h3 className="text-lg font-semibold text-white mb-4">
                   <Calendar size={20} className="inline mr-2" /> Select Date
                 </h3>
-                <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
+                <div className="grid grid-cols-3 sm:grid-cols-7 gap-2">
                   {availableDates.slice(0, 14).map((dateInfo) => {
                     const isSelected = selectedDate === dateInfo.date;
                     const isAvailable = dateInfo.isAvailable !== false;
@@ -695,7 +695,7 @@ const BookService = () => {
                       </button>
                     </div>
                   ) : (
-                    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-3">
                       {timeSlots.map((slot) => {
                         const isSelected = selectedSlot === slot.time;
                         const isAvailable = slot.isAvailable !== false;
