@@ -127,7 +127,6 @@ export const WorkerProvider = ({ children }) => {
     error,
     loadJobs,
     loadStats,
-    loadStats,
     acceptJob,
     rejectJob,
     updateJobStatus,

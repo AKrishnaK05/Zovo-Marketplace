@@ -11,11 +11,6 @@ const WorkerHome = () => {
   const { availableJobs, myJobs, loading, loadJobs, loadStats, stats: workerStats } = useWorker();
   const navigate = useNavigate();
 
-  // ... existing activeJobs/completedJobs/stats logic (unchanged) ...
-  // Note: I will use a simplified replacement to avoid repeating lines 10-23 if possible, 
-  // but replace_file_content requires exact context.
-  // I will replace the start of the component to add the hook.
-
   useEffect(() => {
     loadJobs();
     loadStats();
@@ -104,7 +99,7 @@ const WorkerHome = () => {
         <div className="panel-card">
           <div className="p-6 border-b border-gray-800 flex items-center justify-between">
             <h2 className="text-xl font-bold text-white">Latest Available Jobs</h2>
-            <Link to="/worker/available-jobs" className="panel-card p-6 hover:bg-white/5 transition group">
+            <Link to="/worker/available-jobs" className="text-blue-500 hover:text-blue-400 font-medium transition">
               View all →
             </Link>
           </div>
