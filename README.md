@@ -27,8 +27,8 @@
 - **Authentication**: Secure JWT Auth (Login/Register) & Google OAuth.
 - **Real-Time Updates**: Socket.IO integration for live job status changes (Pending -> In Progress -> Completed).
 - **Smart Booking**: Dynamic pricing calculation based on service type and duration.
-- **Geolocation**: Location-based service matching (Azure Maps / OpenStreetMap integration).
-- **AI-Powered Matching**: Intelligent worker recommendation system (Heuristic/ML-light).
+- **Location Intelligence**: Location-based service matching and clustering.
+- **AI-Powered Matching**: Custom-built LightGBM model for intelligent worker dispatching and recommendation, supported by a robust data engineering pipeline and Jupyter notebooks for training and evaluation.
 
 ---
 
@@ -47,6 +47,11 @@
 - **Mongoose**: ODM for MongoDB.
 - **Socket.io**: Real-time event server.
 - **JWT**: Secure authentication.
+
+### Machine Learning & Data
+- **LightGBM / Scikit-learn**: Gradient boosting framework for the intelligent dispatch model.
+- **Jupyter Notebooks**: For dataset generation, model training, and evaluation pipelines.
+- **Pandas**: Data preprocessing and feature engineering.
 
 ### DevOps & Deployment
 - **Frontend**: GitHub Pages (via GitHub Actions).
@@ -111,6 +116,11 @@ Zovo-Marketplace/
 │   │   ├── services/   # Business logic (Pricing, AI)
 │   │   └── app.js      # Express App Setup
 │   └── server.js       # Entry Point
+│
+├── ml-models/          # Trained ML models (LightGBM) for dispatching
+├── notebooks/          # Jupyter notebooks (Training, Evaluation, Dataset Creation)
+├── data/               # Raw, processed data and caches
+├── utils/              # ML feature engineering scripts
 │
 ├── zovo-frontend/      # React App
 │   ├── src/
