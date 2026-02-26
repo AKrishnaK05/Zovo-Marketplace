@@ -34,7 +34,7 @@ const WorkerLayout = () => {
     <WorkerProvider>
       <div className="flex flex-col md:flex-row h-screen bg-[#1A1A1A] overflow-hidden font-sans text-[#E0E0E0]">
         {/* Sidebar - Desktop Only */}
-        <aside className="hidden md:flex w-64 bg-white border-r border-gray-200 flex-col shadow-xl relative z-20 transition-all duration-300">
+        <aside className="hidden md:flex w-64 bg-white border-r border-gray-100 flex-col shadow-xl relative z-20">
           <div className="flex justify-center items-center h-20 relative z-0 mt-4 mb-2">
             <img src={logo} alt="Zovo" className="w-full scale-[1.5] object-contain drop-shadow-md" />
           </div>
