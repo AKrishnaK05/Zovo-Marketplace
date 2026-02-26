@@ -299,7 +299,7 @@ const JobHistory = () => {
       </div>
 
       {/* Filters */}
-      <div className="flex flex-wrap gap-2 mb-6">
+      <div className="flex-nowrap-scroll hide-scrollbar gap-2 mb-6 pb-2">
         {[
           { key: 'all', label: 'All' },
           { key: 'needsReview', label: 'Needs Review', icon: <Star size={16} /> },
@@ -312,16 +312,17 @@ const JobHistory = () => {
           <button
             key={f.key}
             onClick={() => setFilter(f.key)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition ${filter === f.key
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition shrink-0 flex items-center gap-2 ${filter === f.key
               ? f.key === 'needsReview'
                 ? 'bg-yellow-500 text-black'
                 : 'bg-purple-500 text-white'
               : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
               }`}
           >
+            {f.icon && f.icon}
             {f.label}
             {f.key === 'needsReview' && reviewCount > 0 && (
-              <span className="ml-2 px-1.5 py-0.5 bg-black/20 rounded-full text-xs">
+              <span className="ml-1 px-1.5 py-0.5 bg-black/20 rounded-full text-xs">
                 {reviewCount}
               </span>
             )}

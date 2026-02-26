@@ -16,19 +16,16 @@ const AdminLayoutContent = () => {
   };
 
   const menuItems = [
-    { path: '/admin', label: 'Dashboard', icon: Home },
+    { path: '/admin', label: 'Stats', icon: Home },
+    { path: '/admin/jobs', label: 'Work', icon: Briefcase },
     { path: '/admin/users', label: 'Users', icon: Users },
-    { path: '/admin/jobs', label: 'Jobs', icon: Briefcase },
-    { path: '/admin/categories', label: 'Categories', icon: Tag },
     { path: '/admin/pricing-rules', label: 'Pricing', icon: DollarSign },
-    { path: '/admin/service-areas', label: 'Areas', icon: Map },
-    { path: '/admin/reviews', label: 'Reviews', icon: Star },
   ];
 
   return (
-    <div className="flex h-screen bg-[#1A1A1A] overflow-hidden font-sans text-[#E0E0E0]">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white border-r border-gray-200 flex flex-col shadow-xl relative z-20 transition-all duration-300">
+    <div className="flex flex-col md:flex-row h-screen bg-[#1A1A1A] overflow-hidden font-sans text-[#E0E0E0]">
+      {/* Sidebar - Desktop Only */}
+      <aside className="hidden md:flex w-64 bg-white border-r border-gray-200 flex-col shadow-xl relative z-20 transition-all duration-300">
         <div className="flex justify-center items-center h-20 relative z-0 mt-4 mb-2">
           <img src={logo} alt="Zovo" className="w-full scale-[1.5] object-contain drop-shadow-md" />
         </div>
@@ -59,7 +56,7 @@ const AdminLayoutContent = () => {
         {/* User Profile Summary */}
         <div className="p-4 m-4 bg-gray-50 rounded-2xl border border-gray-100 shadow-inner relative z-10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-zovo-blue flex items-center justify-center text-white font-bold shadow-lg">
+            <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold shadow-lg">
               {user?.name?.[0] || 'A'}
             </div>
             <div className="overflow-hidden">
@@ -78,29 +75,59 @@ const AdminLayoutContent = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col relative overflow-hidden bg-transparent">
+      <main className="flex-1 flex flex-col relative overflow-hidden bg-transparent mb-16 md:mb-0">
         {/* Header */}
-        <header className="h-20 bg-[#1A1A1A]/90 backdrop-blur-md border-b border-white/5 flex items-center justify-between px-8 z-10">
-          <div>
-            <h1 className="text-2xl font-bold text-white">
-              Welcome back, {user?.name || 'Admin'} 👋
-            </h1>
-            <p className="text-sm text-gray-400">Here's what's happening today.</p>
-          </div>
-          <div className="flex items-center space-x-4">
-            <div className="text-sm text-gray-400">
-              {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+        <header className="h-16 md:h-20 bg-[#1A1A1A]/90 backdrop-blur-md border-b border-white/5 flex items-center justify-between px-4 md:px-8 z-10 shrink-0">
+          <div className="flex items-center gap-3">
+            {/* Mobile Logo */}
+            <div className="md:hidden w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center overflow-hidden">
+              <img src={logo} alt="Z" className="w-12 h-12 object-contain scale-[2.5]" />
             </div>
+            <div>
+              <h1 className="text-lg md:text-2xl font-bold text-white truncate max-w-[150px] md:max-w-none">
+                {user?.name?.split(' ')[0] || 'Admin'}
+              </h1>
+              <p className="hidden md:block text-sm text-gray-400">Here's what's happening today.</p>
+            </div>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="md:hidden p-2 text-gray-400 hover:text-white"
+          >
+            <LogOut size={20} />
+          </button>
+          <div className="hidden md:block text-sm text-gray-400">
+            {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
           </div>
         </header>
 
         {/* Page Content */}
-        <div className="flex-1 overflow-auto p-8 custom-scrollbar">
-          <div className="max-w-7xl mx-auto space-y-8 animate-fade-in-up">
+        <div className="flex-1 overflow-auto p-4 md:p-8 custom-scrollbar">
+          <div className="max-w-7xl mx-auto space-y-6 md:space-y-8 animate-fade-in-up">
             <Outlet />
           </div>
         </div>
       </main>
+
+      {/* Mobile Bottom Navigation */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-[#000000]/80 backdrop-blur-xl border-t border-white/10 flex justify-around items-center h-16 px-2 z-50">
+        {menuItems.slice(0, 4).map((item) => {
+          const Icon = item.icon;
+          const active = location.pathname === item.path;
+
+          return (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`flex flex-col items-center justify-center w-full h-full space-y-1 transition-all duration-300 ${active ? 'text-blue-500' : 'text-gray-500'}`}
+            >
+              <Icon size={20} className={active ? 'scale-110 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]' : ''} />
+              <span className="text-[10px] font-medium">{item.label}</span>
+              {active && <div className="w-1 h-1 rounded-full bg-blue-500 mt-0.5" />}
+            </Link>
+          );
+        })}
+      </nav>
     </div>
   );
 };
