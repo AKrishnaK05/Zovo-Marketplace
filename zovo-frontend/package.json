@@ -6,7 +6,7 @@
   "engines": {
     "node": ">=20.0.0"
   },
-  "homepage": "https://<USERNAME>.github.io/Zovo",
+  "homepage": "https://akrishnak05.github.io/Zovo-Marketplace",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
