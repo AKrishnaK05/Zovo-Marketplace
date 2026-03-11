@@ -112,8 +112,12 @@ const Login = () => {
 
       {/* Login Card */}
       <div className="bg-white/60 backdrop-blur-xl border border-white/60 rounded-3xl p-8 shadow-2xl w-full max-w-md relative z-10 transition-all duration-300 hover:shadow-blue-500/10 hover:border-white/80">
-        <div className="mb-6 text-center">
-          <img src={logo} alt="Zovo" className="h-32 md:h-40 mx-auto object-contain" />
+        <div className="mb-10 text-center px-4">
+          <img
+            src={logo}
+            alt="Zovo"
+            className="h-40 md:h-48 w-auto mx-auto object-contain transition-all duration-300 transform hover:scale-105"
+          />
         </div>
         <h2 className="text-xl font-semibold text-zovo-dark text-center mb-6">Sign In</h2>
 
