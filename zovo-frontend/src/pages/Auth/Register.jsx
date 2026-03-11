@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useAuth } from '../../context/AuthContext';
-import logo from '../../assets/zovo_logo.png';
+import logo from '../../assets/zovo_full.png';
 
 const Register = () => {
   const [step, setStep] = useState(1);
@@ -219,7 +219,7 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen relative flex flex-col items-center justify-start bg-gradient-to-br from-blue-50 via-white to-purple-50 px-4 pt-12 pb-24">
+    <div className="min-h-screen flex flex-col items-center justify-start bg-gradient-to-br from-blue-50 via-white to-purple-50 px-4 pt-4 pb-8 overflow-y-auto">
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-blue-200 rounded-full blur-3xl opacity-30 animate-pulse"></div>
@@ -244,10 +244,19 @@ const Register = () => {
       </div>
 
       {/* Register Card */}
-      <div className="bg-white/60 backdrop-blur-xl border border-white/60 rounded-3xl p-8 shadow-2xl w-full max-w-md relative z-10 transition-all duration-300 hover:shadow-blue-500/10 hover:border-white/80">
+      <div className="bg-white/60 backdrop-blur-xl border border-white/60 rounded-3xl p-6 pt-2 shadow-2xl w-full max-w-md relative z-10 transition-all duration-300 hover:shadow-blue-500/10 hover:border-white/80">
+        <div className="text-center -mt-8">
+              <div className="flex items-center justify-center transform transition-transform duration-300 hover:scale-105">
+                <img
+                  src={logo}
+                  alt="Zovo"
+                  className="h-32 md:h-56 w-auto drop-shadow-2xl"
+                />
+              </div>
+        </div>
         {/* Error Message */}
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-100 rounded-lg flex items-center">
+          <div className="mb-4 p-4 bg-red-50 border border-red-100 rounded-lg flex items-center">
             <AlertTriangle className="text-red-500 mr-2" size={20} />
             <span className="text-red-600 text-sm">{error}</span>
           </div>
@@ -257,9 +266,6 @@ const Register = () => {
           {/* Step 1: Basic Info */}
           {step === 1 && (
             <div className="space-y-5">
-              <div className="mb-6 text-center">
-                <img src={logo} alt="Zovo" className="h-32 md:h-40 mx-auto object-contain" />
-              </div>
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <button
                   type="button"
@@ -551,7 +557,7 @@ const Register = () => {
         </form>
 
         {/* Login Link */}
-        <p className="mt-8 text-center text-gray-600">
+        <p className="mt-6 text-center text-gray-600">
           Already have an account?{' '}
           <Link to="/login" className="text-zovo-blue hover:text-blue-700 font-medium">
             Sign in
@@ -560,7 +566,7 @@ const Register = () => {
       </div>
 
       {/* Footer */}
-      <p className="absolute bottom-6 w-full text-center text-gray-600 text-sm">
+      <p className="mt-8 text-gray-500 text-sm">
         © 2024 Zovo. All rights reserved.
       </p>
     </div>

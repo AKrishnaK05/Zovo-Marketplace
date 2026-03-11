@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Check, AlertTriangle, Lock, ArrowRight, ChevronLeft } from 'lucide-react';
-import logo from '../../assets/zovo_logo.png';
+import logo from '../../assets/zovo_full.png';
 import api from '../../services/api';
 
 const ForgotPassword = () => {
@@ -70,7 +70,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 px-4 py-12">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 px-4 py-4 overflow-y-auto">
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-blue-200 rounded-full blur-3xl opacity-30 animate-pulse"></div>
@@ -78,20 +78,26 @@ const ForgotPassword = () => {
       </div>
 
       {/* Card */}
-      <div className="bg-white/60 backdrop-blur-xl border border-white/60 rounded-3xl p-8 shadow-2xl w-full max-w-md relative z-10 transition-all duration-300 hover:shadow-blue-500/10">
-        <div className="mb-2 text-center">
-          <Link to="/login" className="flex flex-col items-center mb-0">
-            <img src={logo} alt="Zovo" className="h-[550px] -my-52 object-contain" />
-          </Link>
-          <h2 className="text-2xl font-bold text-zovo-dark mb-2">Reset Password</h2>
-          <p className="text-gray-600 text-sm">
-            {step === 1 ? 'Enter your email to retrieve your security question' : 'Answer your security question to reset password'}
-          </p>
-        </div>
+      <div className="bg-white/60 backdrop-blur-xl border border-white/60 rounded-3xl p-6 pt-2 shadow-2xl w-full max-w-md relative z-10 transition-all duration-300 hover:shadow-blue-500/10">
+          <div className="text-center -mt-6">
+            <div className="flex flex-col items-center">
+              <div className="flex items-center justify-center transform transition-transform duration-300 hover:scale-105">
+                <img
+                  src={logo}
+                  alt="Zovo"
+                  className="h-32 md:h-56 w-auto drop-shadow-2xl"
+                />
+              </div>
+            </div>
+            <h2 className="text-2xl font-bold text-zovo-dark mb-1">Reset Password</h2>
+            <p className="text-gray-600 text-sm">
+              {step === 1 ? 'Enter your email' : 'Reset your password'}
+            </p>
+          </div>
 
         {/* Success Message */}
         {success && (
-          <div className="mb-6 p-4 bg-green-50 border border-green-100 rounded-lg flex items-start">
+          <div className="mb-4 p-4 bg-green-50 border border-green-100 rounded-lg flex items-start">
             <Check className="text-green-500 mr-2 mt-0.5" size={20} />
             <span className="text-green-600 text-sm">{success}</span>
           </div>
@@ -99,7 +105,7 @@ const ForgotPassword = () => {
 
         {/* Error Message */}
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-100 rounded-lg flex items-center">
+          <div className="mb-4 p-4 bg-red-50 border border-red-100 rounded-lg flex items-center">
             <AlertTriangle className="text-red-500 mr-2" size={20} />
             <span className="text-red-600 text-sm">{error}</span>
           </div>
@@ -209,7 +215,7 @@ const ForgotPassword = () => {
           </form>
         )}
 
-        <div className="mt-8 text-center">
+        <div className="mt-6 text-center">
           <Link
             to="/login"
             className="text-gray-500 hover:text-gray-700 transition flex items-center justify-center text-sm font-medium"
@@ -220,7 +226,7 @@ const ForgotPassword = () => {
       </div>
 
       {/* Footer */}
-      <p className="absolute bottom-6 w-full text-center text-gray-600 text-sm">
+      <p className="mt-6 text-gray-500 text-sm pb-2">
         © 2024 Zovo. All rights reserved.
       </p>
     </div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import logo from '../assets/zovo_logo.png'
+import logo from '../assets/zovo_symbol.png'
 
 export default function CustomerNavbar() {
   const { user, token, logout } = useAuth()
@@ -31,8 +31,8 @@ export default function CustomerNavbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex-shrink-0 flex items-center z-10 relative">
-            <img src={logo} alt="Zovo" className="h-32 scale-[1.3] -my-8 object-contain transition-transform group-hover:scale-[1.4]" />
+          <Link to="/" className="flex-shrink-0 flex items-center z-10 relative pt-1 pb-0">
+            <img src={logo} alt="Zovo" className="h-24 md:h-32 w-auto object-contain transition-transform hover:scale-110 drop-shadow-2xl" />
           </Link>
 
           {/* Desktop Menu */}

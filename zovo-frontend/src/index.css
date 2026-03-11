@@ -15,17 +15,16 @@
     --accent-primary: #007AFF;
     /* Electric Blue */
     --bg-sidebar: #FFFFFF;
-    /* Pure Canvas White */
-    --bg-main: #1A1A1A;
-    /* Deep Charcoal Gray */
-    --bg-card: #2d2d2d;
-    /* Slightly lighter dark for cards (~#333) */
+    /* Reverted to Original White */
+    --bg-main: #001126;
+    /* Main Content: Deep Midnight Blue */
+    --bg-card: #0A1E35;
+    /* Deep blue for content cards */
     --text-sidebar: #1D1D1F;
-    /* Pure Dark for Sidebar */
-    --text-main: #E0E0E0;
-    /* Light Gray for Main Content */
+    /* Reverted to Dark for Sidebar visibility */
+    --text-main: #F9FAFB;
+    /* High Contrast White for Main Content */
     --text-muted: #9CA3AF;
-    /* Muted Text */
   }
 
   /* GLOBAL CURSOR RESET */

@@ -1,12 +1,14 @@
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import logo from '../assets/zovo_logo.png';
-import { LogOut, Home, Calendar, User } from 'lucide-react';
+import logo from '../assets/zovo_symbol.png';
+import { LogOut, Home, Calendar, User, ChevronLeft, ChevronRight, Menu } from 'lucide-react';
+import { useState } from 'react';
 
 const CustomerLayout = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   if (!user) {
     navigate('/login');
@@ -25,14 +27,22 @@ const CustomerLayout = () => {
   ];
 
   return (
-    <div className="flex flex-col md:flex-row h-screen bg-[#1A1A1A] overflow-hidden font-sans text-[#E0E0E0]">
+    <div className="flex flex-col md:flex-row h-screen bg-[#001126] overflow-hidden font-sans text-[#F9FAFB]">
       {/* Sidebar - Desktop Only */}
-      <aside className="hidden md:flex w-64 bg-white border-r border-gray-100 flex-col shadow-xl relative z-20">
-        <div className="flex justify-center items-center h-20 relative z-0 mt-4 mb-2">
-          <img src={logo} alt="Zovo" className="w-full scale-[1.5] object-contain drop-shadow-md" />
+      <aside className={`hidden md:flex flex-col bg-white m-4 rounded-3xl shadow-2xl relative z-20 transition-all duration-500 ease-in-out border border-white/10 ${isCollapsed ? 'w-24' : 'w-72'}`}>
+        {/* Toggle Button */}
+        <button
+          onClick={() => setIsCollapsed(!isCollapsed)}
+          className="absolute -right-3 top-10 bg-[#007AFF] text-white p-1.5 rounded-full shadow-lg hover:scale-110 transition-transform z-30 border-2 border-white"
+        >
+          {isCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+        </button>
+
+        <div className={`flex justify-center items-center h-40 mt-4 transition-all duration-500 ${isCollapsed ? 'scale-75' : 'scale-100'}`}>
+          <img src={logo} alt="Zovo" className={`${isCollapsed ? 'h-24 w-24' : 'h-40 w-40'} object-contain drop-shadow-2xl transition-all duration-500`} />
         </div>
 
-        <nav className="flex-1 px-4 space-y-3 py-6 relative z-10 overflow-y-auto custom-scrollbar">
+        <nav className="flex-1 px-4 space-y-3 pt-2 pb-6 relative z-10 overflow-y-auto custom-scrollbar">
           {navItems.map((item) => {
             const Icon = item.icon;
             const active = location.pathname === item.path;
@@ -41,36 +51,42 @@ const CustomerLayout = () => {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`flex items-center px-4 py-3.5 rounded-2xl transition-all duration-300 group ${active
-                  ? 'bg-[#007AFF] text-white shadow-lg shadow-blue-500/30 scale-[1.02] font-semibold'
-                  : 'text-[#1D1D1F] hover:bg-gray-100/80 hover:text-black hover:shadow-sm'
+                title={isCollapsed ? item.label : ''}
+                className={`flex items-center rounded-2xl transition-all duration-300 group overflow-hidden ${isCollapsed ? 'justify-center p-3.5 mx-2' : 'px-5 py-4 mx-4'
+                  } ${active
+                    ? 'bg-[#007AFF] text-white shadow-lg shadow-blue-500/30 scale-[1.02] font-semibold'
+                    : 'text-[#1D1D1F] hover:bg-gray-100/80 hover:text-black hover:shadow-sm'
                   }`}
               >
-                <Icon className={`w-6 h-6 mr-3 transition-transform duration-300 ${active ? 'animate-pulse' : 'group-hover:scale-110'}`} />
-                <span className="tracking-wide">{item.label}</span>
-                {active && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-white animate-ping" />}
+                <Icon className={`w-6 h-6 shrink-0 transition-transform duration-300 ${active ? 'animate-pulse' : 'group-hover:scale-110'}`} />
+                {!isCollapsed && <span className="ml-3 tracking-wide whitespace-nowrap opacity-100 transition-opacity duration-300">{item.label}</span>}
+                {!isCollapsed && active && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-white animate-ping" />}
               </Link>
             );
           })}
         </nav>
 
         {/* User Profile Summary */}
-        <div className="p-4 m-4 bg-gray-50 rounded-2xl border border-gray-100 shadow-inner relative z-10">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-[#007AFF] flex items-center justify-center text-white font-bold shadow-lg">
+        <div className={`p-4 m-4 bg-gray-50 rounded-2xl border border-gray-100 shadow-inner relative z-10 transition-all duration-500 ${isCollapsed ? 'items-center justify-center p-2' : ''}`}>
+          <div className={`flex items-center gap-3 ${isCollapsed ? 'flex-col' : ''}`}>
+            <div className={`w-10 h-10 rounded-full bg-[#007AFF] flex items-center justify-center text-white font-bold shadow-lg shrink-0 ${isCollapsed ? 'mb-2' : ''}`}>
               {user?.name?.[0] || 'C'}
             </div>
-            <div className="overflow-hidden">
-              <p className="text-sm font-bold text-[#1D1D1F] truncate">{user?.name || 'Customer'}</p>
-              <p className="text-xs text-gray-500 truncate">{user?.email || 'customer@zovo.com'}</p>
-            </div>
+            {!isCollapsed && (
+              <div className="overflow-hidden">
+                <p className="text-sm font-bold text-[#1D1D1F] truncate">{user?.name || 'Customer'}</p>
+                <p className="text-xs text-gray-500 truncate">{user?.email || 'customer@zovo.com'}</p>
+              </div>
+            )}
           </div>
           <button
             onClick={handleLogout}
-            className="mt-4 w-full flex items-center justify-center px-5 py-2.5 bg-gray-200/50 hover:bg-red-50 text-gray-600 hover:text-red-600 rounded-xl transition-all duration-300 font-medium border border-transparent hover:border-red-100"
+            title={isCollapsed ? 'Sign Out' : ''}
+            className={`mt-4 flex items-center justify-center bg-gray-200/50 hover:bg-red-50 text-gray-600 hover:text-red-600 rounded-xl transition-all duration-300 font-medium border border-transparent hover:border-red-100 ${isCollapsed ? 'w-10 h-10 p-0' : 'w-full px-5 py-2.5'
+              }`}
           >
-            <LogOut className="w-4 h-4 mr-2" />
-            Sign Out
+            <LogOut className={`${isCollapsed ? 'w-5 h-5' : 'w-4 h-4 mr-2'}`} />
+            {!isCollapsed && 'Sign Out'}
           </button>
         </div>
       </aside>
@@ -78,11 +94,11 @@ const CustomerLayout = () => {
       {/* Main Content */}
       <main className="flex-1 flex flex-col relative overflow-hidden bg-transparent mb-16 md:mb-0">
         {/* Header */}
-        <header className="h-16 md:h-20 bg-[#1A1A1A]/90 backdrop-blur-md border-b border-white/5 flex items-center justify-between px-4 md:px-8 z-10 shrink-0">
-          <div className="flex items-center gap-3">
+        <header className="h-16 md:h-20 bg-[#001126]/90 backdrop-blur-md border-b border-white/5 flex items-center justify-between px-4 md:px-8 z-10 shrink-0">
+          <div className="flex items-center gap-4">
             {/* Mobile Logo */}
-            <div className="md:hidden w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center overflow-hidden">
-              <img src={logo} alt="Z" className="w-12 h-12 object-contain scale-[2.5]" />
+            <div className="md:hidden w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center overflow-hidden shadow-lg">
+              <img src={logo} alt="Z" className="w-10 h-10 object-contain" />
             </div>
             <div>
               <h1 className="text-lg md:text-2xl font-bold text-white truncate max-w-[150px] md:max-w-none">
