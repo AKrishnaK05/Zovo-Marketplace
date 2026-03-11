@@ -4,7 +4,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Eye, EyeOff, AlertTriangle, ArrowRight } from 'lucide-react';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useAuth } from '../../context/AuthContext';
-import logo from '../../assets/zovo_logo.png';
+import logo from '../../assets/zovo_symbol.png';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -112,11 +112,11 @@ const Login = () => {
 
       {/* Login Card */}
       <div className="bg-white/60 backdrop-blur-xl border border-white/60 rounded-3xl p-8 shadow-2xl w-full max-w-md relative z-10 transition-all duration-300 hover:shadow-blue-500/10 hover:border-white/80">
-        <div className="mb-10 text-center px-4">
+        <div className="mb-8 text-center px-4">
           <img
             src={logo}
             alt="Zovo"
-            className="h-40 md:h-48 w-auto mx-auto object-contain transition-all duration-300 transform hover:scale-105"
+            className="h-32 md:h-40 w-auto mx-auto object-contain transition-all duration-300 transform hover:scale-110 drop-shadow-xl"
           />
         </div>
         <h2 className="text-xl font-semibold text-zovo-dark text-center mb-6">Sign In</h2>
